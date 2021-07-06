@@ -18,7 +18,8 @@ jobs:
   Pages:
     runs-on: ubuntu-latest
     steps:
-    - run: ls -lsah ./web
+    - run: pwd
+    - run: ls -lsah .
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
