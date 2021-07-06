@@ -18,8 +18,9 @@ jobs:
   Pages:
     runs-on: ubuntu-latest
     steps:
-    - run: pwd
-    - run: ls -lsah .
+    - uses: actions/checkout@master
+      with:
+        ref: refs/heads/master
     - name: Deploy to Github Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
