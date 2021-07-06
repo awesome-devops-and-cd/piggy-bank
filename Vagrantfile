@@ -10,5 +10,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
+    apt update
+    apt install -y nodejs npm
   SHELL
 end

@@ -1,12 +1,23 @@
 # Piggy Bank
 Simple expense tracker.
 
+## Dependencies
+- Vagrant (host)
+- NodeJs (host|guest)
+
 ## Install
+
+```sh
+npm install
+```
 
 ## Run
 
+```sh
+npm start
+```
 
-# Vagrant
+## Vagrant
 if you don't have git installed on your computer. Use the vagrant configuration instead
 
 - download zip

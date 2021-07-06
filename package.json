@@ -1,0 +1,21 @@
+{
+  "name": "piggy-bank",
+  "version": "0.0.0-private.0",
+  "description": "piggy bank expense tracker project",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "echo \"Error: nothing to start\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awesome-devops-and-cd/piggy-bank.git"
+  },
+  "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/awesome-devops-and-cd/piggy-bank/issues"
+  },
+  "homepage": "https://github.com/awesome-devops-and-cd/piggy-bank#readme"
+}
