@@ -1,0 +1,11 @@
+[{
+  "user": "foo",
+  "borrowers": ["bar", "baz"],
+  "price": 150.00,
+  "date": "2021-07-06T10:59:31.474Z"
+},{
+  "user": "bar",
+  "borrowers": ["foo"],
+  "price": 50.00,
+  "date": "2021-07-07T10:59:31.474Z"
+}]
