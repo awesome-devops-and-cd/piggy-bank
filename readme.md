@@ -18,7 +18,7 @@ npm start
 ```
 
 ## Vagrant
-if you don't have git installed on your computer. Use the vagrant configuration instead
+if you don't have the tools installed on your computer (git, nodejs, docker, etc). Use the vagrant configuration instead and run the commands from within our VM.
 
 - download zip
 - unpack and move project folder to where you like
@@ -26,4 +26,5 @@ if you don't have git installed on your computer. Use the vagrant configuration 
 - (host) `vagrant ssh`
 - (guest) `cd /vagrant`
 - (guest) `git init`
-- (guest) `git remote add origin git@github.com:awesome-devops-and-cd/piggy-bank.git`
+- (guest) `git remote add origin https://github.com/awesome-devops-and-cd/piggy-bank.git`
+- (guest) `git pull --rebase origin master`
