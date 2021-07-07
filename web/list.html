@@ -26,17 +26,12 @@
       </tr>
     </thead>
     <tbody id="table-body">
-      <tr>
-        <td>username</td>
-        <td>description</td>
-        <td>amount</td>
-        <td>participants</td>
-        <td>date</td>
-      </tr>
     </tbody>
   </table>
+
   <script>
-    fetch('api/expenses.json', {
+    // In order to use fetch, a http protocol is required. In order to use it, we get the raw json file from our repo in github
+    fetch('https://raw.githubusercontent.com/awesome-devops-and-cd/piggy-bank/master/web/api/expenses.json', {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -44,8 +39,15 @@
     })
       .then(response => response.json())
       .then(data => {
-        const tableBody = document.getElementById('table-body')
-        // try to draw the table from within here
+        const table = document.getElementById('table-body')
+        for (var key in data) {
+          var transaction = data[key]
+          var newRow = table.insertRow()
+          
+          var htmlContent = `<td>${transaction.username}</td><td>${transaction.description}</td><td>${transaction.amount}</td>
+                <td>${transaction.participants}</td><td>${transaction.date}</td>`
+          newRow.innerHTML = htmlContent;
+        }
       })
   </script>
 </body>
