@@ -25,7 +25,7 @@
         <td>date</td>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="table-body">
       <tr>
         <td>username</td>
         <td>description</td>
@@ -43,14 +43,10 @@
       }
     })
       .then(response => response.json())
-      .then(data => console.log(data))
-
-
-    document.addEventListener('DOMContentLoaded', function onDomReady() {
-      // fetch api/expenses.json
-      // parse the tabular data
-      // draw table with the data of the request
-    })
+      .then(data => {
+        const tableBody = document.getElementById('table-body')
+        // try to draw the table from within here
+      })
   </script>
 </body>
 
