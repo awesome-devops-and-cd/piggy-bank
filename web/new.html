@@ -69,13 +69,15 @@
       form.addEventListener('submit', event => event.preventDefault())
       submit.addEventListener('click', function onFormSubmission() {
         const debug = document.getElementById('debug')
-        debug.innerText = JSON.stringify({
+        const jsObject = {
           username: username.value,
           description: description.value,
           amount: amount.valueAsNumber,
           participants: participants.value.split(','),
           date: date.valueAsDate
-        }, null, 2)
+        }
+
+        debug.innerText = JSON.stringify(jsObject, null, 2)
       })
 
 
