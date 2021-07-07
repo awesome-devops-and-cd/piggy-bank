@@ -1,0 +1,34 @@
+[
+  {
+    "username": "foo",
+    "description": "coffee",
+    "amount": 15,
+    "participants": [
+      "foo",
+      "bar",
+      "baz"
+    ],
+    "date": "2021-07-07T00:00:00.000Z"
+  },
+  {
+    "username": "bar",
+    "description": "coffee",
+    "amount": 20,
+    "participants": [
+      "foo",
+      "bar",
+      "baz"
+    ],
+    "date": "2021-07-07T00:00:00.000Z"
+  },
+  {
+    "username": "baz",
+    "description": "paper",
+    "amount": 15,
+    "participants": [
+      "foo",
+      "baz"
+    ],
+    "date": "2021-07-07T00:00:00.000Z"
+  }
+]
