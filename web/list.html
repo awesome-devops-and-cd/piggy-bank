@@ -25,8 +25,7 @@
         <td>date</td>
       </tr>
     </thead>
-    <tbody id="table-body">
-    </tbody>
+    <tbody></tbody>
   </table>
   <script>
     fetch('api/expenses.json', {
@@ -37,26 +36,35 @@
     })
       .then(response => response.json())
       .then(data => {
-        const tableBody = document.getElementById('table-body')
+        const tableBody = document.querySelector('tbody')
+
+        const tableBodyFragment = document.createDocumentFragment()
+        const tableBodyReplacement = document.createElement('tbody')
+
+        tableBodyFragment.appendChild(tableBodyReplacement)
+
         data.forEach(element => {
-          let row = tableBody.insertRow()
+          const row = tableBodyReplacement.insertRow()
 
-          let username = row.insertCell(0)
-          username.innerHTML = element.username
+          const username = row.insertCell(0)
+          username.innerHTML = `<code>${element.username}</code>`
 
-          let description = row.insertCell(1)
-          description.innerHTML = element.description
+          const description = row.insertCell(1)
+          description.innerText = element.description
 
-          let amount = row.insertCell(2)
-          amount.innerHTML = element.amount
+          const amount = row.insertCell(2)
+          amount.innerText = parseFloat(element.amount).toFixed(2) + ' €'
 
-          let participants = row.insertCell(3)
+          const participants = row.insertCell(3)
           participants.innerHTML = element.participants
+            .map(participant => `<code>${participant}</code>`)
+            .join(' ')
 
-          let date = row.insertCell(4)
-          date.innerHTML = element.date
+          const date = row.insertCell(4)
+          date.innerText = new Date(element.date).toDateString()
         })
-        
+
+        tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)
       })
   </script>
 </body>
