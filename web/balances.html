@@ -44,8 +44,7 @@
   <br>
   <br>
   <article id="users">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus numquam harum unde autem sit, maiores expedita
-    animi beatae fugit omnis eius quas deserunt corporis quaerat? Magni voluptas alias iure corporis!
+    Loading...
   </article>
   <script>
     fetch('api/expenses.json', {
@@ -58,7 +57,7 @@
       .then(data => {
         const credit = computeCreditBalance(data)
         const debit = computeDebitBalance(data)
-        const userList = ['foo', 'bar', 'baz']
+        const userList = uniqueUsers(...Object.keys(credit), ...Object.keys(debit))
         const balances = computeBalances(userList, credit, debit)
 
         const usersElement = document.getElementById('users')
@@ -66,37 +65,48 @@
 
         userList.forEach(user => {
           const details = document.createElement('details')
-          const summary = document.createElement('summary')
-          const classColor = balances[user].balance >= 0 ? 'positive' : 'negative'
-          summary.innerHTML = `${user} <code class="${classColor}">${balances[user].balance}€</code>`
-
-          const creditListHeader = document.createElement('h4')
-          creditListHeader.innerText = 'Credits'
-          const creditList = document.createElement('ul')
-          Object.keys(balances[user].credit).forEach(borrower => {
-            const creditListItem = document.createElement('li')
-            creditListItem.innerHTML = `${borrower} ${balances[user].credit[borrower]}€`
-            creditList.appendChild(creditListItem)
-          })
-
-          const debitListHeader = document.createElement('h4')
-          debitListHeader.innerText = 'Debits'
-          const debitList = document.createElement('ul')
-          Object.keys(balances[user].debit).forEach(borrower => {
-            const debitListItem = document.createElement('li')
-            debitListItem.innerHTML = `${borrower} ${balances[user].debit[borrower]}€`
-            debitList.appendChild(debitListItem)
-          })
-          details.appendChild(creditListHeader)
-          details.appendChild(creditList)
-          details.appendChild(debitListHeader)
-          details.appendChild(debitList)
-          details.appendChild(summary)
+          details.appendChild(balanceUserSummary(user, balances[user].balance))
+          details.appendChild(balanceListHeader('Credits'))
+          details.appendChild(balanceList(balances[user].credit, '+'))
+          details.appendChild(balanceListHeader('Debits'))
+          details.appendChild(balanceList(balances[user].debit, '-'))
           userFragment.appendChild(details)
         })
 
         users.replaceChildren(userFragment)
       })
+
+    function uniqueUsers(...users) {
+      return [...new Set(users)]
+    }
+
+    function balanceUserSummary(username, balance) {
+      const summary = document.createElement('summary')
+      const classColor = balance >= 0 ? 'positive' : 'negative'
+      summary.innerHTML = `${username} <code class="${classColor}">${balance}€</code>`
+
+      return summary
+    }
+
+    function balanceListHeader(title) {
+      const header = document.createElement('h4')
+      header.innerText = title
+      return header
+    }
+
+    function balanceList(dictionary, prefix) {
+      const list = document.createElement('ul')
+
+      Object.keys(dictionary).forEach(user => {
+        const listItem = document.createElement('li')
+        listItem.innerHTML = `${user} ${prefix}${dictionary[user]}€`
+
+        list.appendChild(listItem)
+      })
+
+      return list
+    }
+
 
     function computeBalances(users, credit, debit) {
       return users.reduce(toDebitAndCreditBalancesByUser, {})
