@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <title>Piggy Bank - Balances</title>
+  <style>
+    body {
+      padding: 50px;
+    }
+
+    legend {
+      font-size: xx-large;
+      padding-bottom: 50px;
+    }
+
+    summary {
+      position: relative;
+    }
+
+    summary code {
+      position: absolute;
+      right: 60px;
+      padding: 4px;
+    }
+
+    .negative {
+      background-color: indianred;
+      color: white;
+    }
+
+    .positive {
+      background-color: lightgreen;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html">‹ Back</a>
+  <br>
+  <br>
+  <article id="users">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus numquam harum unde autem sit, maiores expedita
+    animi beatae fugit omnis eius quas deserunt corporis quaerat? Magni voluptas alias iure corporis!
+  </article>
+  <script>
+    fetch('api/expenses.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const credit = computeCreditBalance(data)
+        const debit = computeDebitBalance(data)
+        const userList = ['foo', 'bar', 'baz']
+        const balances = computeBalances(userList, credit, debit)
+
+        const usersElement = document.getElementById('users')
+        const userFragment = document.createDocumentFragment()
+
+        userList.forEach(user => {
+          const details = document.createElement('details')
+          const summary = document.createElement('summary')
+          const classColor = balances[user].balance >= 0 ? 'positive' : 'negative'
+          summary.innerHTML = `${user} <code class="${classColor}">${balances[user].balance}€</code>`
+
+          const creditListHeader = document.createElement('h4')
+          creditListHeader.innerText = 'Credits'
+          const creditList = document.createElement('ul')
+          Object.keys(balances[user].credit).forEach(borrower => {
+            const creditListItem = document.createElement('li')
+            creditListItem.innerHTML = `${borrower} ${balances[user].credit[borrower]}€`
+            creditList.appendChild(creditListItem)
+          })
+
+          const debitListHeader = document.createElement('h4')
+          debitListHeader.innerText = 'Debits'
+          const debitList = document.createElement('ul')
+          Object.keys(balances[user].debit).forEach(borrower => {
+            const debitListItem = document.createElement('li')
+            debitListItem.innerHTML = `${borrower} ${balances[user].debit[borrower]}€`
+            debitList.appendChild(debitListItem)
+          })
+          details.appendChild(creditListHeader)
+          details.appendChild(creditList)
+          details.appendChild(debitListHeader)
+          details.appendChild(debitList)
+          details.appendChild(summary)
+          userFragment.appendChild(details)
+        })
+
+        users.replaceChildren(userFragment)
+      })
+
+    function computeBalances(users, credit, debit) {
+      return users.reduce(toDebitAndCreditBalancesByUser, {})
+
+      function toDebitAndCreditBalancesByUser(balances, user) {
+        const userCredit = credit[user] || {}
+        const userDebit = debit[user] || {}
+        balances[user] = {
+          credit: userCredit,
+          debit: userDebit,
+          balance: sumValues(userCredit) - sumValues(userDebit)
+        }
+
+        return balances
+      }
+
+      function sumValues(object) {
+        return Object.values(object).reduce((sum, number) => (sum + number), 0)
+      }
+    }
+
+    function computeDebitBalance(transactions = []) {
+      return transactions.reduce(toDebitBalancesByUser, {} /* users */)
+
+      function toDebitBalancesByUser(users, transaction) {
+        const { username, amount, participants } = transaction
+        const equalShare = amount / participants.length
+
+        participants
+          .filter(participant => participant !== username)
+          .forEach(participant => {
+            if (!users[participant]) users[participant] = {}
+            if (!users[participant][username]) users[participant][username] = 0
+            users[participant][username] += equalShare
+          })
+
+        return users
+      }
+    }
+
+    function computeCreditBalance(transactions = []) {
+      return transactions.reduce(toCreditBalancesByUser, {})
+
+      function toCreditBalancesByUser(users, { username, amount, participants }) {
+        const equalShare = amount / participants.length
+        participants
+          .filter(participant => participant !== username)
+          .forEach(participant => {
+            if (!users[username]) users[username] = {}
+            if (!users[username][participant]) users[username][participant] = 0
+            users[username][participant] += equalShare
+          })
+
+        return users
+      }
+    }
+
+  </script>
+</body>
+
+</html>
