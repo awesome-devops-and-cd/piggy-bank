@@ -26,13 +26,6 @@
       </tr>
     </thead>
     <tbody id="table-body">
-      <tr>
-        <td>username</td>
-        <td>description</td>
-        <td>amount</td>
-        <td>participants</td>
-        <td>date</td>
-      </tr>
     </tbody>
   </table>
   <script>
@@ -45,7 +38,25 @@
       .then(response => response.json())
       .then(data => {
         const tableBody = document.getElementById('table-body')
-        // try to draw the table from within here
+        data.forEach(element => {
+          let row = tableBody.insertRow()
+
+          let username = row.insertCell(0)
+          username.innerHTML = element.username
+
+          let description = row.insertCell(1)
+          description.innerHTML = element.description
+
+          let amount = row.insertCell(2)
+          amount.innerHTML = element.amount
+
+          let participants = row.insertCell(3)
+          participants.innerHTML = element.participants
+
+          let date = row.insertCell(4)
+          date.innerHTML = element.date
+        })
+        
       })
   </script>
 </body>
