@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balance</title>
+</head>
+
+<body>
+  <h1>Balance</h1>
+  <script>
+
+      let balance = [0,0,0]
+
+      fetch('api/expenses.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+
+     data.forEach(element => {
+
+          const username = element.username
+
+          const amount = element.amount
+
+          const participants =  element.participants //as array/list
+
+          const numberUsers = participants.length
+
+          const share = amount/numberUsers
+
+          switch(username) {
+              case "foo":
+                balance[0] += amount
+                  if ("foo" in participants)
+                       balance[0] += -share
+                  if ("bar" in participants)
+                        balance[1] += -share
+                  if ("baz" in participants)
+                        balance[2] += -share
+               break;
+              case "bar":
+               balance[1] += amount
+                  if ("foo" in participants)
+                       balance[0] += -share
+                  if ("bar" in participants)
+                        balance[1] += -share
+                  if ("baz" in participants)
+                        balance[2] += -share
+              break;
+              case "baz":
+               balance[2] += amount
+                  if ("foo" in participants)
+                       balance[0] += -share
+                  if ("bar" in participants)
+                        balance[1] += -share
+                  if ("baz" in participants)
+                        balance[2] += -share
+              break;
+              default:
+                  // code block
+            }
+          
+        })
+  })
+  </script>
+
+
+</body>
+
+</html>
