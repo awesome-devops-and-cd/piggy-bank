@@ -2,7 +2,7 @@
   {
     "username": "foo",
     "description": "coffee",
-    "amount": 15,
+    "amount": 30,
     "participants": [
       "foo",
       "bar",
@@ -13,7 +13,7 @@
   {
     "username": "bar",
     "description": "coffee",
-    "amount": 20,
+    "amount": 30,
     "participants": [
       "foo",
       "bar",
@@ -24,7 +24,7 @@
   {
     "username": "baz",
     "description": "paper",
-    "amount": 15,
+    "amount": 20,
     "participants": [
       "foo",
       "baz"
