@@ -65,10 +65,54 @@
 
           const date = row.insertCell(4)
           date.innerText = new Date(element.date).toDateString()
+          
+          // Team 2 code
+          // ############################################################
+          // user list
+          var user1 = {username: "foo", credit: 0, debit: 0, balance: 0};
+          var user2 = {username: "bar", credit: 0, debit: 0, balance: 0};
+          var user3 = {username: "baz", credit: 0, debit: 0, balance: 0};
+          var users = [user1, user2, user3];
+          
+          for (i=0; i<data.length; i++)
+            {
+              var dataTmp = data[i]
+
+              for (j=0; j<users.length; j++)
+              {
+                //credit
+                if(dataTmp.username == users[j].username)
+                {
+                  users[j].credit +=  dataTmp.amount;
+                }
+              
+                //debit
+                for(x=0; x<dataTmp.participants.length; x++)
+                {
+                    if (dataTmp.participants[x] ==users[j].username)
+                    {
+                      users[j].debit +=  dataTmp.amount/dataTmp.participants.length;
+                    }
+                }
+              }
+            }
+
+            //compute balance
+            for(i=0; i<data.length; i++)
+            {
+              users[i].balance = users[i].credit-users[i].debit;
+            }
+            console.log(users)
+            // ############################################################
+
         })
 
         tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)
       })
+
+
+
+
   </script>
 </body>
 
