@@ -6,30 +6,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <title>Piggy Bank - Expenses List</title>
   <style>
     body {
       padding: 50px;
     }
   </style>
+  <script src="sort-table.min.js"></script>
 </head>
 
 <body>
   <a href="index.html">‹ Back</a>
   <br>
   <br>
-  <table>
+
+
+  <table class="js-sort-table" id="demo1">
     <thead>
       <tr>
-        <td>username</td>
-        <td>description</td>
-        <td>amount</td>
-        <td>participants</td>
-        <td>date</td>
+        <th>username<i class="fa fa-fw fa-sort"></i></th>
+        <th>description<i class="fa fa-fw fa-sort"></i></th>
+        <th class="js-sort-string">amount<i class="fa fa-fw fa-sort"></i></th>
+        <th>participants<i class="fa fa-fw fa-sort"></i></th>
+        <th class="js-sort-date">date<i class="fa fa-fw fa-sort"></i></th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
+
   <script>
     fetch('api/expenses.json', {
       headers: {
@@ -64,12 +69,13 @@
             .join(' ')
 
           const date = row.insertCell(4)
-          date.innerText = new Date(element.date).toDateString()
+          date.innerText = new Date(element.date).toISOString().substr(0, 10)
         })
 
         tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)
       })
   </script>
+
 </body>
 
 </html>
