@@ -88,6 +88,7 @@ fetch('api/expenses.json', {
   .then(data => {
     const { computeCreditBalance } = require('../lib/computeCreditBalance')
     const { computeDebitBalance } = require('../lib/computeDebitBalance')
+    const { computeBalances } = require('../lib/computeBalances')
 
     const credit = computeCreditBalance(data)
     const debit = computeDebitBalance(data)
