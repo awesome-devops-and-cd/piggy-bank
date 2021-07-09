@@ -6,30 +6,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <!--link rel="stylesheet" href="sort-table.css"-->
   <title>Piggy Bank - Expenses List</title>
   <style>
     body {
       padding: 50px;
     }
   </style>
+  <script src="sort-table.min.js"></script>
 </head>
 
 <body>
   <a href="index.html">‹ Back</a>
   <br>
   <br>
-  <table>
+  
+
+  <table class="js-sort-table" id="demo1">
     <thead>
       <tr>
-        <td>username</td>
-        <td>description</td>
-        <td>amount</td>
-        <td>participants</td>
-        <td>date</td>
+        <th>username</th>
+        <th>description</th>
+        <th class="js-sort-string">amount</th>
+        <th>participants</th>
+        <th class="js-sort-date">date</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
+  
   <script>
     fetch('api/expenses.json', {
       headers: {
@@ -70,6 +75,7 @@
         tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)
       })
   </script>
+  
 </body>
 
 </html>
