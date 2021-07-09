@@ -87,6 +87,8 @@ fetch('api/expenses.json', {
 })
   .then(response => response.json())
   .then(data => {
+    const { computeCreditBalance } = require('../lib/computeCreditBalance')
+
     const credit = computeCreditBalance(data)
     const debit = computeDebitBalance(data)
     const userList = uniqueUsers(...Object.keys(credit), ...Object.keys(debit))
@@ -234,6 +236,9 @@ function computeDebitBalance(transactions = []) {
   }
 }
 
+},{"../lib/computeCreditBalance":2,"../lib/getBase64":3}],2:[function(require,module,exports){
+module.exports = { computeCreditBalance }
+
 function computeCreditBalance(transactions = []) {
   return transactions.reduce(toCreditBalancesByUser, {})
 
@@ -249,11 +254,9 @@ function computeCreditBalance(transactions = []) {
 
     return users
   }
-
 }
 
-
-},{"../lib/getBase64":2}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 module.exports = { getBase64 }
 
 function getBase64(file) {
