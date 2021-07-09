@@ -8,7 +8,8 @@
       "bar",
       "baz"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-07T00:00:00.000Z",
+    "image": "https://www.zooplus.it/magazine/wp-content/uploads/2020/10/1-37-768x512.jpg"
   },
   {
     "username": "bar",
@@ -19,7 +20,8 @@
       "bar",
       "baz"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-07T00:00:00.000Z",
+    "image": "https://doctorvet.it/wp-content/uploads/2019/11/the-lucky-neko-rplhB9mYF48-unsplash.jpg"    
   },
   {
     "username": "baz",
@@ -29,6 +31,7 @@
       "foo",
       "baz"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-07T00:00:00.000Z",
+    "image": "https://www.villaggionatura.com/shop/modules/ph_simpleblog/covers/28.jpg"
   }
 ]
