@@ -88,6 +88,7 @@ fetch('api/expenses.json', {
   .then(response => response.json())
   .then(data => {
     const { computeCreditBalance } = require('../lib/computeCreditBalance')
+    const { computeDebitBalance } = require('../lib/computeDebitBalance')
 
     const credit = computeCreditBalance(data)
     const debit = computeDebitBalance(data)
@@ -196,47 +197,7 @@ function balanceList(dictionary, prefix) {
   return list
 }
 
-
-function computeBalances(users, credit, debit) {
-  return users.reduce(toDebitAndCreditBalancesByUser, {})
-
-  function toDebitAndCreditBalancesByUser(balances, user) {
-    const userCredit = credit[user] || {}
-    const userDebit = debit[user] || {}
-    balances[user] = {
-      credit: userCredit,
-      debit: userDebit,
-      balance: sumValues(userCredit) - sumValues(userDebit)
-    }
-
-    return balances
-  }
-
-  function sumValues(object) {
-    return Object.values(object).reduce((sum, number) => (sum + number), 0)
-  }
-}
-
-function computeDebitBalance(transactions = []) {
-  return transactions.reduce(toDebitBalancesByUser, {} /* users */)
-
-  function toDebitBalancesByUser(users, transaction) {
-    const { username, amount, participants } = transaction
-    const equalShare = amount / participants.length
-
-    participants
-      .filter(participant => participant !== username)
-      .forEach(participant => {
-        if (!users[participant]) users[participant] = {}
-        if (!users[participant][username]) users[participant][username] = 0
-        users[participant][username] += equalShare
-      })
-
-    return users
-  }
-}
-
-},{"../lib/computeCreditBalance":2,"../lib/getBase64":3}],2:[function(require,module,exports){
+},{"../lib/computeCreditBalance":2,"../lib/computeDebitBalance":3,"../lib/getBase64":4}],2:[function(require,module,exports){
 module.exports = { computeCreditBalance }
 
 function computeCreditBalance(transactions = []) {
@@ -257,6 +218,28 @@ function computeCreditBalance(transactions = []) {
 }
 
 },{}],3:[function(require,module,exports){
+module.exports = { computeDebitBalance }
+
+function computeDebitBalance(transactions = []) {
+  return transactions.reduce(toDebitBalancesByUser, {} /* users */)
+
+  function toDebitBalancesByUser(users, transaction) {
+    const { username, amount, participants } = transaction
+    const equalShare = amount / participants.length
+
+    participants
+      .filter(participant => participant !== username)
+      .forEach(participant => {
+        if (!users[participant]) users[participant] = {}
+        if (!users[participant][username]) users[participant][username] = 0
+        users[participant][username] += equalShare
+      })
+
+    return users
+  }
+}
+
+},{}],4:[function(require,module,exports){
 module.exports = { getBase64 }
 
 function getBase64(file) {
