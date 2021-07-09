@@ -20,7 +20,7 @@
   <a href="index.html">‹ Back</a>
   <br>
   <br>
-  
+
 
   <table class="js-sort-table" id="demo1">
     <thead>
@@ -34,7 +34,7 @@
     </thead>
     <tbody></tbody>
   </table>
-  
+
   <script>
     fetch('api/expenses.json', {
       headers: {
@@ -69,13 +69,13 @@
             .join(' ')
 
           const date = row.insertCell(4)
-          date.innerText = new Date(element.date).toDateString()
+          date.innerText = new Date(element.date).toISOString().substr(0, 10)
         })
 
         tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)
       })
   </script>
-  
+
 </body>
 
 </html>
