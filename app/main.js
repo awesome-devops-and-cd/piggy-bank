@@ -32,3 +32,49 @@ document.addEventListener('DOMContentLoaded', function onDomReady() {
 })
 
 
+fetch('api/expenses.json', {
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+})
+  .then(response => response.json())
+  .then(data => {
+    const tableBody = document.querySelector('tbody')
+
+    const tableBodyFragment = document.createDocumentFragment()
+    const tableBodyReplacement = document.createElement('tbody')
+
+    tableBodyFragment.appendChild(tableBodyReplacement)
+
+    data.forEach(element => {
+
+      const row = tableBodyReplacement.insertRow()
+
+      const username = row.insertCell(0)
+      username.innerHTML = `<code>${element.username}</code>`
+
+      const description = row.insertCell(1)
+      description.innerText = element.description
+
+      const amount = row.insertCell(2)
+      amount.innerText = parseFloat(element.amount).toFixed(2) + ' €'
+
+      const participants = row.insertCell(3)
+      participants.innerHTML = element.participants
+        .map(participant => `<code>${participant}</code>`)
+        .join(' ')
+
+      const date = row.insertCell(4)
+
+      date.innerText = new Date(element.date).toISOString().substr(0, 10)
+
+      const image = row.insertCell(5)
+
+      image.innerHTML = `<a href=${element.image}> <img width="50" height="60" src="${element.image}"> </a>`
+    })
+
+    tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)
+  })
+
+
