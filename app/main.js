@@ -86,6 +86,8 @@ fetch('api/expenses.json', {
 })
   .then(response => response.json())
   .then(data => {
+    const { computeCreditBalance } = require('../lib/computeCreditBalance')
+
     const credit = computeCreditBalance(data)
     const debit = computeDebitBalance(data)
     const userList = uniqueUsers(...Object.keys(credit), ...Object.keys(debit))
@@ -232,22 +234,3 @@ function computeDebitBalance(transactions = []) {
     return users
   }
 }
-
-function computeCreditBalance(transactions = []) {
-  return transactions.reduce(toCreditBalancesByUser, {})
-
-  function toCreditBalancesByUser(users, { username, amount, participants }) {
-    const equalShare = amount / participants.length
-    participants
-      .filter(participant => participant !== username)
-      .forEach(participant => {
-        if (!users[username]) users[username] = {}
-        if (!users[username][participant]) users[username][participant] = 0
-        users[username][participant] += equalShare
-      })
-
-    return users
-  }
-
-}
-

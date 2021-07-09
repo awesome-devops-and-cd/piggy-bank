@@ -35,6 +35,8 @@ const data = [
 ]
 
 describe('Compute User Credit', function () {
+  const { computeCreditBalance } = require('../lib/computeCreditBalance')
+
   it('returns an empty dictionary for an empty list of transactions', function () {
     const result = computeCreditBalance([])
     deepStrictEqual(result, {})
@@ -79,6 +81,8 @@ describe('Compute User Debit', function () {
 })
 
 describe('Compute User Balance', function () {
+  const { computeCreditBalance } = require('../lib/computeCreditBalance')
+
   it('returns an empty dictionary for an empty list of transactions', function () {
     const result = computeBalances([], {}, {})
     deepStrictEqual(result, {})
@@ -142,23 +146,6 @@ function computeDebitBalance(transactions = []) {
         if (!users[participant]) users[participant] = {}
         if (!users[participant][username]) users[participant][username] = 0
         users[participant][username] += equalShare
-      })
-
-    return users
-  }
-}
-
-function computeCreditBalance(transactions = []) {
-  return transactions.reduce(toCreditBalancesByUser, {})
-
-  function toCreditBalancesByUser(users, { username, amount, participants }) {
-    const equalShare = amount / participants.length
-    participants
-      .filter(participant => participant !== username)
-      .forEach(participant => {
-        if (!users[username]) users[username] = {}
-        if (!users[username][participant]) users[username][participant] = 0
-        users[username][participant] += equalShare
       })
 
     return users
