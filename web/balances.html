@@ -47,7 +47,7 @@
     Loading...
   </article>
 <article>
-  <h4>Operation needed to reach balance = 0</h4>
+  <h4>Recommended operations to settle debts</h4>
   <ul id="ul-track-op">
   </ul>
 </article>
@@ -110,9 +110,8 @@
         items = filterZeroBalances(items)
         items = SortBalances(items)
 
-        window.alert(items);
         var ul = document.getElementById("ul-track-op");
-        
+
         while (items.length)
         {
           
@@ -122,12 +121,17 @@
                   items[j][1] += items[0][1]
 
                   // create the steps for the UI
-                  var op = " gives ";
-                  if(items[0][1] < 0) { op = " receives from "}
+                  if(items[0][1] < 0) { 
                   var ul = document.getElementById("ul-track-op");
                   var li = document.createElement("li");
-                  li.appendChild(document.createTextNode(items[j][0] + op + items[0][0] + " €" + Math.abs(items[0][1])));
-                  ul.appendChild(li);
+                  li.appendChild(document.createTextNode(items[0][0] + " should give " + items[j][0] + " €" + Math.abs(items[0][1])));
+                  ul.appendChild(li);}
+                  else {
+                  var ul = document.getElementById("ul-track-op");
+                  var li = document.createElement("li");
+                  li.appendChild(document.createTextNode(items[j][0] + " should give " + items[0][0] + " €" + Math.abs(items[0][1])));
+                  ul.appendChild(li);}  
+                  
 
                   //compute the new balances
                   items[0][1] = 0;       
@@ -137,7 +141,6 @@
           
           items = filterZeroBalances(items)
           items = SortBalances(items)
-          window.alert(items);
         }
         
         
@@ -237,4 +240,3 @@
 </body>
 
 </html>
-
