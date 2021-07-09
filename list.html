@@ -30,9 +30,11 @@
         <th class="js-sort-string">amount<i class="fa fa-fw fa-sort"></i></th>
         <th>participants<i class="fa fa-fw fa-sort"></i></th>
         <th class="js-sort-date">date<i class="fa fa-fw fa-sort"></i></th>
+        <th class="js-sort-none">image</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+    </tbody>
   </table>
 
   <script>
@@ -52,6 +54,7 @@
         tableBodyFragment.appendChild(tableBodyReplacement)
 
         data.forEach(element => {
+
           const row = tableBodyReplacement.insertRow()
 
           const username = row.insertCell(0)
@@ -69,7 +72,12 @@
             .join(' ')
 
           const date = row.insertCell(4)
+
           date.innerText = new Date(element.date).toISOString().substr(0, 10)
+
+          const image = row.insertCell(5)
+
+          image.innerHTML = `<a href=${element.image}> <img width="50" height="60" src="${element.image}"> </a>`
         })
 
         tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)

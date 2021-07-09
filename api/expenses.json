@@ -1,14 +1,14 @@
 [
   {
-    "username": "foo",
-    "description": "coffee",
-    "amount": 30,
+    "username": "baz",
+    "description": "paper",
+    "amount": 20,
     "participants": [
       "foo",
-      "bar",
       "baz"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-01T00:00:00.000Z",
+    "image": "https://www.villaggionatura.com/shop/modules/ph_simpleblog/covers/28.jpg"
   },
   {
     "username": "bar",
@@ -19,7 +19,8 @@
       "bar",
       "baz"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-02T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
   },
   {
     "username": "baz",
@@ -29,28 +30,8 @@
       "foo",
       "baz"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
-  },
-  {
-    "username": "bar",
-    "description": "coffee",
-    "amount": 30,
-    "participants": [
-      "foo",
-      "bar",
-      "baz"
-    ],
-    "date": "2021-07-07T00:00:00.000Z"
-  },
-  {
-    "username": "baz",
-    "description": "paper",
-    "amount": 20,
-    "participants": [
-      "foo",
-      "baz"
-    ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-03T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
   },
   {
     "username": "baz",
@@ -61,7 +42,8 @@
       "baz",
       "foo"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-04T00:00:00.000Z",
+    "image": "https://doctorvet.it/wp-content/uploads/2019/11/the-lucky-neko-rplhB9mYF48-unsplash.jpg"
   },
   {
     "username": "bar",
@@ -71,7 +53,8 @@
       "foo",
       "bar"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-05T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
   },
   {
     "username": "foo",
@@ -82,7 +65,8 @@
       "baz",
       "fop"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-06T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
   },
   {
     "username": "pippo",
@@ -93,7 +77,8 @@
       "pluto",
       "paperino"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-07T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
   },
   {
     "username": "paperino",
@@ -104,6 +89,7 @@
       "fop",
       "bar"
     ],
-    "date": "2021-07-07T00:00:00.000Z"
+    "date": "2021-07-08T00:00:00.000Z",
+    "image": "https://www.zooplus.it/magazine/wp-content/uploads/2020/10/1-37-768x512.jpg"
   }
 ]
