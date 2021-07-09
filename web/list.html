@@ -29,8 +29,8 @@
         <th>description<i class="fa fa-fw fa-sort"></i></th>
         <th class="js-sort-string">amount<i class="fa fa-fw fa-sort"></i></th>
         <th>participants<i class="fa fa-fw fa-sort"></i></th>
-        <th class="js-sort-date">date</th>
-        <th class="js-sort-none">image<i class="fa fa-fw fa-sort"></i></th>
+        <th class="js-sort-date">date<i class="fa fa-fw fa-sort"></i></th>
+        <th class="js-sort-none">image</th>
       </tr>
     </thead>
     <tbody>
@@ -77,7 +77,7 @@
 
           const image = row.insertCell(5)
 
-          image.innerHTML = `<a href=${element.image}> <img width="50" height="60" src=${element.image}> </a>`
+          image.innerHTML = `<a href=${element.image}> <img width="50" height="60" src="${element.image}"> </a>`
         })
 
         tableBody.parentNode.replaceChild(tableBodyFragment, tableBody)

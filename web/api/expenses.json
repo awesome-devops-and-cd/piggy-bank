@@ -1,95 +1,95 @@
 [
-   {
-      "username":"baz",
-      "description":"paper",
-      "amount":20,
-      "participants":[
-         "foo",
-         "baz"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"bar",
-      "description":"coffee",
-      "amount":30,
-      "participants":[
-         "foo",
-         "bar",
-         "baz"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"baz",
-      "description":"paper",
-      "amount":20,
-      "participants":[
-         "foo",
-         "baz"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"baz",
-      "description":"coffee",
-      "amount":60,
-      "participants":[
-         "bar",
-         "baz",
-         "foo"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"bar",
-      "description":"paper",
-      "amount":25,
-      "participants":[
-         "foo",
-         "bar"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"foo",
-      "description":"paper",
-      "amount":30,
-      "participants":[
-         "bar",
-         "baz",
-         "fop"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"pippo",
-      "description":"paper",
-      "amount":30,
-      "participants":[
-         "pippo",
-         "pluto",
-         "paperino"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   },
-   {
-      "username":"paperino",
-      "description":"paper",
-      "amount":45,
-      "participants":[
-         "pippo",
-         "fop",
-         "bar"
-      ],
-      "date":"2021-07-07T00:00:00.000Z",
-      "image":"data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\"/>"
-   }
+  {
+    "username": "baz",
+    "description": "paper",
+    "amount": 20,
+    "participants": [
+      "foo",
+      "baz"
+    ],
+    "date": "2021-07-01T00:00:00.000Z",
+    "image": "https://www.villaggionatura.com/shop/modules/ph_simpleblog/covers/28.jpg"
+  },
+  {
+    "username": "bar",
+    "description": "coffee",
+    "amount": 30,
+    "participants": [
+      "foo",
+      "bar",
+      "baz"
+    ],
+    "date": "2021-07-02T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+  },
+  {
+    "username": "baz",
+    "description": "paper",
+    "amount": 20,
+    "participants": [
+      "foo",
+      "baz"
+    ],
+    "date": "2021-07-03T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+  },
+  {
+    "username": "baz",
+    "description": "coffee",
+    "amount": 60,
+    "participants": [
+      "bar",
+      "baz",
+      "foo"
+    ],
+    "date": "2021-07-04T00:00:00.000Z",
+    "image": "https://doctorvet.it/wp-content/uploads/2019/11/the-lucky-neko-rplhB9mYF48-unsplash.jpg"
+  },
+  {
+    "username": "bar",
+    "description": "paper",
+    "amount": 25,
+    "participants": [
+      "foo",
+      "bar"
+    ],
+    "date": "2021-07-05T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+  },
+  {
+    "username": "foo",
+    "description": "paper",
+    "amount": 30,
+    "participants": [
+      "bar",
+      "baz",
+      "fop"
+    ],
+    "date": "2021-07-06T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+  },
+  {
+    "username": "pippo",
+    "description": "paper",
+    "amount": 30,
+    "participants": [
+      "pippo",
+      "pluto",
+      "paperino"
+    ],
+    "date": "2021-07-07T00:00:00.000Z",
+    "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+  },
+  {
+    "username": "paperino",
+    "description": "paper",
+    "amount": 45,
+    "participants": [
+      "pippo",
+      "fop",
+      "bar"
+    ],
+    "date": "2021-07-08T00:00:00.000Z",
+    "image": "https://www.zooplus.it/magazine/wp-content/uploads/2020/10/1-37-768x512.jpg"
+  }
 ]
