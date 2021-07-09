@@ -85,6 +85,7 @@ describe('Compute User Debit', function () {
 describe('Compute User Balance', function () {
   const { computeCreditBalance } = require('../lib/computeCreditBalance')
   const { computeDebitBalance } = require('../lib/computeDebitBalance')
+  const { computeBalances } = require('../lib/computeBalances')
 
   it('returns an empty dictionary for an empty list of transactions', function () {
     const result = computeBalances([], {}, {})
@@ -115,23 +116,3 @@ describe('Compute User Balance', function () {
     })
   })
 })
-
-function computeBalances(users, credit, debit) {
-  return users.reduce(toDebitAndCreditBalancesByUser, {})
-
-  function toDebitAndCreditBalancesByUser(balances, user) {
-    const userCredit = credit[user] || {}
-    const userDebit = debit[user] || {}
-    balances[user] = {
-      credit: userCredit,
-      debit: userDebit,
-      balance: sumValues(userCredit) - sumValues(userDebit)
-    }
-
-    return balances
-  }
-
-  function sumValues(object) {
-    return Object.values(object).reduce((sum, number) => (sum + number), 0)
-  }
-}
