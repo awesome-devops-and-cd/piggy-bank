@@ -6,3 +6,23 @@ legend {
   font-size: xx-large;
   padding-bottom: 50px;
 }
+
+summary {
+  position: relative;
+}
+
+summary code {
+  position: absolute;
+  right: 60px;
+  padding: 4px;
+}
+
+.negative {
+  background-color: indianred;
+  color: white;
+}
+
+.positive {
+  background-color: lightgreen;
+  color: black;
+}
