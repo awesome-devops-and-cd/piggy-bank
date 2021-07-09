@@ -46,6 +46,12 @@
   <article id="users">
     Loading...
   </article>
+  <article>
+    <h4>Recommended operations to settle debts</h4>
+    <ul id="ul-track-op">
+    </ul>
+  </article>
+
   <script>
     fetch('api/expenses.json', {
       headers: {
@@ -74,6 +80,61 @@
         })
 
         users.replaceChildren(userFragment)
+
+        // #######################################
+
+        // Remove from the balances the user with balance 0
+
+        function filterZeroBalances(array) {
+          return array.filter(innerArray => innerArray[1] !== 0);
+        }
+
+        // Sort the array based on the second element
+        function SortBalances(array) {
+          return array.sort(function (first, second) {
+            return Math.abs(first[1]) - Math.abs(second[1]);
+          })
+        }
+
+        var items = userList.reduce((items, user) => [...items, [user, balances[user].balance]], [])
+
+        items = filterZeroBalances(items)
+        items = SortBalances(items)
+
+        var ul = document.getElementById("ul-track-op");
+
+        while (items.length) {
+
+          for (j = 1; j < items.length; j++) {
+            if (items[0][1] * items[j][1] < 0) {
+
+              items[j][1] += items[0][1]
+
+              // create the steps for the UI
+              if (items[0][1] < 0) {
+                const ul = document.getElementById("ul-track-op");
+                const li = document.createElement("li");
+                li.appendChild(document.createTextNode(items[0][0] + " should give " + items[j][0] + " €" + Math.abs(items[0][1])));
+                ul.appendChild(li);
+              } else {
+                const ul = document.getElementById("ul-track-op");
+                const li = document.createElement("li");
+                li.appendChild(document.createTextNode(items[j][0] + " should give " + items[0][0] + " €" + Math.abs(items[0][1])));
+                ul.appendChild(li);
+              }
+
+              //compute the new balances
+              items[0][1] = 0;
+              break;
+            }
+          }
+
+          items = filterZeroBalances(items)
+          items = SortBalances(items)
+        }
+
+
+        // #######################################
       })
 
     function uniqueUsers(...users) {
@@ -162,6 +223,7 @@
 
         return users
       }
+
     }
 
   </script>
