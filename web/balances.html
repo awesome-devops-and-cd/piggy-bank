@@ -82,59 +82,64 @@
         users.replaceChildren(userFragment)
 
         // #######################################
-        var usersBalancesTmp = {
-         bar: balances.bar.balance,
-         baz: balances.baz.balance,
-         foo: balances.foo.balance
+
+       // Remove from the balances the user with balance 0
+       
+        function filterZeroBalances(array) {
+              return array.filter(innerArray => innerArray[1] !== 0);
         }
-        console.log(usersBalancesTmp)
+
+        // Sort the array based on the second element
+        function SortBalances(array) {
+        return array.sort(function(first, second) {
+          return Math.abs(first[1]) - Math.abs(second[1]);
+        })}
+
+        var usersBalancesTmp = {}
+        userList.forEach(user => {
+           usersBalancesTmp[user] = balances[user].balance
+        })
+        
+        //Maybe it's possible to create directly the array
         
         // Create items array
         var items = Object.keys(usersBalancesTmp).map(function(key) {
-          return [key, Math.abs(usersBalancesTmp[key]), Math.sign(usersBalancesTmp[key])];
+          return [key, usersBalancesTmp[key]];
         });
 
-        // Sort the array based on the second element
-        items.sort(function(first, second) {
-          return first[1] - second[1];
-        });
+        items = filterZeroBalances(items)
+        items = SortBalances(items)
 
-        // Create a new array with only the first 5 items
-        console.log(items);
+        window.alert(items);
         var ul = document.getElementById("ul-track-op");
-        for (i=0; i< items.length; i++)
+        
+        while (items.length)
         {
           
-          for(j=0; j<items.length; j++){
-            if(i==j) continue;
-            if(items[i][2] * items[j][2] < 0) {
+          for(j=1; j<items.length; j++){
+            if(items[0][1] * items[j][1] < 0) {
                   
-                  items[j][1] -= items[i][1]
+                  items[j][1] += items[0][1]
 
                   // create the steps for the UI
-                  var op = " -> ";
-                  if(items[i][2] < 0) { op = " <- "}
+                  var op = " gives ";
+                  if(items[0][1] < 0) { op = " receives from "}
                   var ul = document.getElementById("ul-track-op");
                   var li = document.createElement("li");
-                  li.appendChild(document.createTextNode("step "+i+": "+ items[j][0] + op + items[i][0] + " €" + items[i][1]));
+                  li.appendChild(document.createTextNode(items[j][0] + op + items[0][0] + " €" + Math.abs(items[0][1])));
                   ul.appendChild(li);
 
                   //compute the new balances
-                  items[i][1] = 0;
-                  items[i][2] = 0;
-                  if(items[j][1] == 0)
-                  {
-                    items[j][2] = 0;
-                  }
-                  
+                  items[0][1] = 0;       
                   break;
             }            
           }
-          items.sort(function(first, second) {
-              return first[1] - second[1];
-            });
+          
+          items = filterZeroBalances(items)
+          items = SortBalances(items)
+          window.alert(items);
         }
-        console.log(items);
+        
         
         // #######################################
       })
