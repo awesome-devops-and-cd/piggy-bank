@@ -1,3 +1,5 @@
+const { getBase64 } = require('../lib/getBase64')
+
 document.addEventListener('DOMContentLoaded', function onDomReady() {
   const username = document.getElementById('username')
   const description = document.getElementById('description')
@@ -29,11 +31,4 @@ document.addEventListener('DOMContentLoaded', function onDomReady() {
   })
 })
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
+
