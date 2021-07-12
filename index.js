@@ -1,44 +1,29 @@
-const { createServer } = require('http')
-
+const express = require('express')
+const parser = require('body-parser')
 const expenses = []
 
-createServer(requestLister)
-  .listen(3000, function () {
-    console.log('-- server has started and is listening on http://localhost:3000')
-  })
+const app = express()
+  .use(parser.json())
+  .use(express.static('web'))
 
-function requestLister(request, response) {
-  console.log('-- a request has been made to this server', request.url)
+app.post('/expenses', (req, res) => {
+  const expense = req.body
+  expense.id = expenses.length
+  expenses.push(expense)
+  res.setHeader('Location', `/expenses/${expense.id}`) // fixme: this route is not yet implemented
+  res.json(expense)
+})
 
-  if (request.url === '/expenses' && request.method === 'POST') {
-    toJson(request, expense => {
-      expense.id = expenses.length
-      response.writeHead(201, { 'Content-Type': 'application/json', 'Location': `/expenses/${expense.id}` })
-      expenses.push(expense)
-      response.end(JSON.stringify(expense))
-    })
-    return
-  }
+app.get('/expenses', (req, res) => {
+  res.json(expenses)
+})
 
-  if (request.url === '/expenses' && request.method === 'GET') {
-    response.writeHead(200, { 'Content-Type': 'application/json' })
-    response.end(JSON.stringify(expenses))
-    return
-  }
+app.get('/*', (req, res) => {
+  res.status(404).end('The requested route does not exist!')
+})
 
-  response.writeHead(404, {
-    'Content-Type': 'text/plain'
-  })
+// catch-all route for serving all 404s (url not found) type of requests
 
-  response.end('Not found')
-}
-
-
-function toJson(req, callbackFunction, { concat } = Buffer) {
-  const buffer = []
-  req.on('data', (data) => buffer.push(data))
-  req.on('end', () => {
-    const json = JSON.parse(concat(buffer))
-    callbackFunction(json)
-  })
-}
+app.listen(3000, function () {
+  console.log('* server started on http://localhost:3000')
+})
