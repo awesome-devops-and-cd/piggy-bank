@@ -27,14 +27,20 @@ describe('api', () => {
   it('adds an expenses using /expenses', (done) => {
     request(server)
       .post('/expenses')
-      .send({ foo: 'bar' }) // there's no validation for now
+      .send({
+        username: 'foo',
+        description: 'lorem',
+        amount: 10,
+        participants: [],
+        date: new Date()
+      }) // there's no validation for now
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect('Location', /\/expenses\/\d+/)
       .expect(201)
       .end((err, res) => {
         if (err) return done(err)
-        deepStrictEqual(res.body, { foo: 'bar', id: 0 })
+        deepStrictEqual(res.body.id, 0)
         return done()
       })
   })
@@ -60,7 +66,7 @@ describe('api', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-        deepStrictEqual(res.body, { foo: 'bar', id: 0 })
+        strictEqual(res.body.id, 0)
         return done()
       })
   })
@@ -74,7 +80,7 @@ describe('api', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
-        deepStrictEqual(res.body, { foo: 'bar', id: 0 })
+        strictEqual(res.body.id, 0)
         return done()
       })
   })
@@ -82,7 +88,7 @@ describe('api', () => {
   it('filter an expense by a given property /expenses?username=foo', (done) => {
     request(server)
       .post('/expenses')
-      .send({ username: 'test1', description: 'test1' })
+      .send({ username: 'test1', description: 'test1', amount: 10, participants: ['test1'], date: new Date() })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect('Location', /\/expenses\/\d+/)
@@ -91,7 +97,7 @@ describe('api', () => {
         if (err) return done(err)
         request(server)
           .post('/expenses')
-          .send({ username: 'test2', description: 'test2' })
+          .send({ username: 'test2', description: 'test2', amount: 10, participants: ['test1'], date: new Date() })
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect('Location', /\/expenses\/\d+/)
