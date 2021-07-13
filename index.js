@@ -1,10 +1,12 @@
 const express = require('express')
 const parser = require('body-parser')
+const logger = require('morgan')
 
 // database
 const expenses = []
 
 const app = express()
+  .use(logger('dev'))
   .use(parser.json())
   .use(express.static('web'))
 
@@ -23,8 +25,6 @@ app.get('/expenses', (req, res) => {
 app.get('/*', (req, res) => {
   res.status(404).end('The requested route does not exist!')
 })
-
-// catch-all route for serving all 404s (url not found) type of requests
 
 module.exports = app.listen(3000, function () {
   console.log('* server started on http://localhost:3000')
