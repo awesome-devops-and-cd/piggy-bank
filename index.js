@@ -23,6 +23,22 @@ app.get('/expenses', (req, res) => {
   res.json(expenses)
 })
 
+app.get('/expenses/:id', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.status(200)
+  let tid = parseInt(req.params.id)
+  res.json(expenses.find( x => x.id === tid))
+})
+
+app.delete('/expenses/:id', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.status(200)
+  let tid = parseInt(req.params.id)
+  let index = expenses.findIndex( x => x.id === tid)
+  expenses.splice(index, 1)
+  res.end()
+})
+
 app.get('/*', (req, res) => {
   res.status(404).end('The requested route does not exist!')
 })
