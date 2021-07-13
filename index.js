@@ -25,16 +25,19 @@ app.get('/expenses', (req, res) => {
 
 app.get('/expenses/:id', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
+
   const expense = expenses.find(({ id }) => id === parseInt(req.params.id))
   if (!expense) {
     res.status(404).json({ error: 'expense not found' })
     return
   }
   res.status(200).json(expense)
+
 })
 
 app.delete('/expenses/:id', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
+
   const index = expenses.findIndex(({ id }) => id === parseInt(req.params.id))
 
   if (index === -1) {
