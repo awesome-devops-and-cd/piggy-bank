@@ -51,6 +51,34 @@ describe('api', () => {
       })
   })
 
+  it('returns a single expense at /expenses/:id', (done) => {
+    const id = 0
+    request(server)
+      .get(`/expenses/${id}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /application\/(json|octet-stream)/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+        deepStrictEqual(res.body, { foo: 'bar', id: 0 })
+        return done()
+      })
+  })
+
+  it('deletes a single expense at /expenses/:id', (done) => {
+    const id = 0
+    request(server)
+      .delete(`/expenses/${id}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /application\/(json|octet-stream)/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+        deepStrictEqual(res.body, '')
+        return done()
+      })
+  })
+
   it('responds to /index.html', (done) => {
     request(server)
       .get('/index.html')
