@@ -26,13 +26,25 @@ document.addEventListener('DOMContentLoaded', function onDomReady() {
       image: imgData
     }
 
+    fetch('/expenses', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(jsObject)
+    })
+      .then(response => response.json())
+      .then(console.log)
+      .catch(console.error)
+
     debug.innerText = JSON.stringify(jsObject, null, 2)
     document.getElementById("preview").src = imgData
   })
 })
 
 
-fetch('api/expenses.json', {
+fetch('/expenses', {
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -78,7 +90,7 @@ fetch('api/expenses.json', {
   })
 
 
-fetch('api/expenses.json', {
+fetch('/expenses', {
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
