@@ -2,9 +2,9 @@ const express = require('express')
 const parser = require('body-parser')
 const logger = require('morgan')
 
-// database
-const expenses = []
+const { createFilterElement } = require('./lib/createFilterElement')
 
+const expenses = []
 const app = express()
   .use(logger('dev'))
   .use(parser.json())
@@ -19,28 +19,9 @@ app.post('/expenses', (req, res) => {
 })
 
 app.get('/expenses', (req, res) => {
-  var username = req.query.username
-  var description = req.query.description
-  var lowerAmount = req.query.lowerAmount
-  var upperAmount = req.query.upperAmount
-  var partecipant = req.query.partecipant
-  var fromDate =  req.query.fromDate
-  var toDate = req.query.toDate
-
-  filterElement = function(el){
-    var usernameFilter =  username==null ? true : el.username == username
-    var descriptionFilter = description == null ? true : el.description == description
-    var lowerAmountFilter = lowerAmount==null ? true : el.amount >= lowerAmount
-    var upperAmountFilter = upperAmount==null ? true : el.amount <= upperAmount
-    var partecipantFilter = partecipant==null ? true: el.participants.includes(partecipant)
-    var fromDateFilter = fromDate==null ? true : new Date(el.date) >= new Date(fromDate)
-    var toDateFilter = toDate==null ? true : new Date(el.date) <= new Date(toDate)
-
-    return usernameFilter && descriptionFilter && lowerAmountFilter && upperAmountFilter && partecipantFilter && fromDateFilter && toDateFilter
-  }
-
+  const filterElement = createFilterElement(req.query)
   res.setHeader('Content-Type', 'application/json')
-  res.json(expenses.filter(el => filterElement(el)))
+  res.status(200).json(expenses.filter(filterElement))
 })
 
 app.get('/expenses/:id', (req, res) => {
