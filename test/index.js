@@ -1,4 +1,5 @@
-var assert = require('assert');
+const assert = require('assert')
+const http = require('http')
 
 describe('Entrypoint', function () {
 
@@ -10,6 +11,6 @@ describe('Entrypoint', function () {
 
   it('should be empty', function () {
     const piggyBank = require('..')
-    assert.deepStrictEqual(piggyBank, {})
+    assert.ok(piggyBank instanceof http.Server)
   })
 })
