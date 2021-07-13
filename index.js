@@ -19,6 +19,7 @@ app.post('/expenses', (req, res) => {
 })
 
 app.get('/expenses', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
   res.json(expenses)
 })
 
