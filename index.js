@@ -1,5 +1,7 @@
 const express = require('express')
 const parser = require('body-parser')
+
+// database
 const expenses = []
 
 const app = express()
@@ -11,7 +13,7 @@ app.post('/expenses', (req, res) => {
   expense.id = expenses.length
   expenses.push(expense)
   res.setHeader('Location', `/expenses/${expense.id}`) // fixme: this route is not yet implemented
-  res.json(expense)
+  res.status(201).json(expense)
 })
 
 app.get('/expenses', (req, res) => {
@@ -24,6 +26,6 @@ app.get('/*', (req, res) => {
 
 // catch-all route for serving all 404s (url not found) type of requests
 
-app.listen(3000, function () {
+module.exports = app.listen(3000, function () {
   console.log('* server started on http://localhost:3000')
 })
