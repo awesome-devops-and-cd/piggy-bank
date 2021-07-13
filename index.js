@@ -20,9 +20,7 @@ app.post('/expenses',
   body('amount').isNumeric(),
   body('participants').isArray(),
   body('date').isLength({ min: 10 }).isString(),
-  //body('image').isAlphanumeric(),
   (req, res) => {
-    console.log(req.body)
     const err = validationResult(req);
     if (!err.isEmpty()) {
       console.log('The request is not valid', err)
@@ -35,12 +33,6 @@ app.post('/expenses',
       res.setHeader('Location', `/expenses/${expense.id}`) // fixme: this route is not yet implemented
       res.status(201).json(expense)
     }
-    /*Expenses.create({
-      username: req.body.username,
-      description: req.body.description,
-      amount: req.body.amount,
-      participants: req.body.participants,
-      date: req.body.date,}).then(expenses => res.json(expenses));*/
   })
 
 app.get('/expenses', (req, res) => {
