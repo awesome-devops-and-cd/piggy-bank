@@ -34,7 +34,12 @@ document.addEventListener('DOMContentLoaded', function onDomReady() {
       },
       body: JSON.stringify(jsObject)
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status !== 201) {
+          window.alert('all fields are required, please fill them carefully!')
+        }
+        return response.json()
+      })
       .then(console.log)
       .catch(console.error)
 
