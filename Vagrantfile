@@ -8,10 +8,13 @@ Vagrant.configure("2") do |config|
     vb.memory = "1024"
   end
 
-  config.vm.provision "shell", inline: <<-SHELL
-    apt update
-    apt install -y nodejs npm
-    cd /vagrant
-    npm install
-  SHELL
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provision.yml"
+    ansible.verbose = "v"
+    ansible.extra_vars = {
+      ansible_become_user: "root",
+      ansible_python_interpreter: "/usr/bin/python3",
+      ansible_become: true
+    }
+  end
 end

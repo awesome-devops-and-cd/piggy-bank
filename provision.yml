@@ -1,0 +1,18 @@
+---
+- hosts: all
+  vars:
+    users: []
+  tasks:
+  - name: "Install dependencies"
+    package:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - nodejs
+    - npm
+    - ansible
+
+  - name: "Install npm dependencies"
+    command:
+      chdir: /vagrant
+      cmd: npm install
