@@ -35,7 +35,12 @@ document.addEventListener('DOMContentLoaded', function onDomReady() {
       },
       body: JSON.stringify(jsObject)
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status !== 201) {
+          window.alert('all fields are required, please fill them carefully!')
+        }
+        return response.json()
+      })
       .then(console.log)
       .catch(console.error)
 
@@ -279,6 +284,7 @@ function computeDebitBalance(transactions = []) {
 module.exports = { getBase64 }
 
 function getBase64(file) {
+  if (file === undefined) return Promise.resolve('')
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
