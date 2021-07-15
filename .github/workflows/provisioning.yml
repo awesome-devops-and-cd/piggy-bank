@@ -1,0 +1,16 @@
+name: "Digital Ocean Provisioning"
+on:
+  push:
+    branches: [master]
+jobs:
+  Provision:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: refs/heads/master
+    - run: ansible-playbook --extra-vars="ansible_user=${SSH_USER} ansible_password=${SSH_PASSWORD}" -i env/production provision.yml
+      env:
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        ANSIBLE_HOST_KEY_CHECKING: False
