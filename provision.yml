@@ -66,4 +66,30 @@
       state: present
     notify: restart sshd
 
+  - name: Create project directory
+    file:
+      path: /app
+      state: directory
 
+  - name: Copy project into remote directory
+    copy:
+      src: ./
+      dest: /app
+
+  - name: "Install project dependencies"
+    become: true
+    command:
+      chdir: /app
+      cmd: npm install
+
+  - name: "Build project assets"
+    become: true
+    command:
+      chdir: /app
+      cmd: npm run build --if-present
+
+  # - name: "Start project"
+  #   become: true
+  #   command:
+  #     chdir: /app
+  #     cmd: npm start&
