@@ -62,7 +62,7 @@
     ansible.builtin.lineinfile:
       dest: /etc/ssh/sshd_config
       regexp: ^PermitRootLogin
-      line: PermitRootLogin no
+      line: PermitRootLogin yes
       state: present
     notify: restart sshd
 
