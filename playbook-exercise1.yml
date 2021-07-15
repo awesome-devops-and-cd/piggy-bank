@@ -1,0 +1,29 @@
+- hosts: localhost
+  tasks: 
+   - name: "install htop package"
+     become: true
+     package:
+       name: htop
+       state: present
+   - name: "install netcat package"
+     become: true
+     package:
+       name: netcat
+       state: present
+   - name: "Create a foo user"
+     become: true
+     user:
+       name: foo
+       group: admin
+   - name: "create the file /tmp/x"
+     file:
+       path: /tmp/x
+       state: touch
+   - name: "create the file /tmp/y"
+     file:
+       path: /tmp/y
+       state: touch
+   - name: "create the file /tmp/z" 
+     file:
+       path: /tmp/z
+       state: touch

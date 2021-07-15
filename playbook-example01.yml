@@ -1,0 +1,11 @@
+- hosts: localhost
+  tasks: 
+  - name: "create the file /tmp/foo"
+    file:
+       path: /tmp/foo
+       state: touch
+  - name: "install htop package"
+    become: true
+    package:
+       name: htop
+       state: present
