@@ -18,6 +18,10 @@
       comment: Nicola Maria Scarpa
       password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
       state: present
+    - name: edonadini
+      comment: Eleonora Donadini
+      password: SHA256:D+2IQJOevAh2RmDs8yYZX5HBmqU5j6PpR+2DPxO/pNI
+      state: present
   handlers:
   - name: restart sshd
     service:
