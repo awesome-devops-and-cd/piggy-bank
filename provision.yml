@@ -3,8 +3,16 @@
   vars:
     users:
     - name: ivoputzer
-      comment: "Ivo von Putzer Reibegg"
+      comment: Ivo von Putzer Reibegg
       password: $6$IdVtXdaOmTYWw7xW$jQvaLuYWJobdC/k1dzmY61wyvYF1YLEl4AVzqUxAVVUik5HqflLbgI/ALnRsKBNPfgOzRw03zs742lo9HwYP.1
+      state: present
+    - name: lorenzoberetta92
+      comment: Lorenzo Beretta
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+      state: present
+    - name: mrVerna
+      comment: Francesco Vernacchia
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
       state: present
   tasks:
   - name: Update apt-get repo and cache
@@ -35,8 +43,13 @@
       state: "{{ item.state }}"
       remove: yes
     with_items: "{{ users }}"
-  # - name: "Install npm dependencies"
-  #   become: true
-  #   command:
-  #     chdir: /vagrant
-  #     cmd: npm install
+
+  - name: Add authorized_keys without validating the certs
+    authorized_key:
+      user: "{{ item.name }}"
+      state: present
+      key: "https://github.com/{{ item.name }}.keys"
+      validate_certs: false
+    when: item.state == 'present'
+    with_items: "{{ users }}"
+
