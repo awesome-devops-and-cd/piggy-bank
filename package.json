@@ -4,6 +4,11 @@
   "description": "piggy bank expense tracker project",
   "main": "index.js",
   "private": true,
+  "config": {
+    "http": {
+      "port": 80
+    }
+  },
   "scripts": {
     "start": "node index.js",
     "test": "mocha",

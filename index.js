@@ -73,6 +73,6 @@ app.get('/*', (req, res) => {
   res.status(404).end('The requested route does not exist!')
 })
 
-module.exports = app.listen(3000, function () {
-  console.log('* server started on http://localhost:3000')
+module.exports = app.listen(process.env.npm_package_config_http_port, function () {
+  console.log(`* server started on http://localhost:${process.env.npm_package_config_http_port}`)
 })
