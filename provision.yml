@@ -9,11 +9,16 @@
     - name: lorenzoberetta92
       comment: Lorenzo Beretta
       password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
-      state: present
+      state: absent
     - name: mrVerna
       comment: Francesco Vernacchia
       password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
       state: present
+  handlers:
+  - name: restart sshd
+    service:
+      name: sshd
+      state: restarted
   tasks:
   - name: Update apt-get repo and cache
     become: true
@@ -52,4 +57,13 @@
       validate_certs: false
     when: item.state == 'present'
     with_items: "{{ users }}"
+
+  - name: Disable ssh access to root user
+    ansible.builtin.lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: ^PermitRootLogin
+      line: PermitRootLogin no
+      state: present
+    notify: restart sshd
+
 
