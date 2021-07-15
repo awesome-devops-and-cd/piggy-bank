@@ -1,7 +1,11 @@
 ---
 - hosts: all
   vars:
-    users: []
+    users:
+    - name: ivoputzer
+      comment: "Ivo von Putzer Reibegg"
+      password: $6$IdVtXdaOmTYWw7xW$jQvaLuYWJobdC/k1dzmY61wyvYF1YLEl4AVzqUxAVVUik5HqflLbgI/ALnRsKBNPfgOzRw03zs742lo9HwYP.1
+      state: present
   tasks:
   - name: Update apt-get repo and cache
     become: true
@@ -18,10 +22,21 @@
     loop:
     - nodejs
     - npm
-    - ansible
 
-  - name: "Install npm dependencies"
-    become: true
-    command:
-      chdir: /vagrant
-      cmd: npm install
+  - name: Add users with primary group 'sudo'
+    ansible.builtin.user:
+      name: "{{ item.name }}"
+      comment: "{{ item.comment }}"
+      password: "{{ item.password }}"
+      update_password: always
+      group: sudo
+      shell: /bin/bash
+      create_home: true
+      state: "{{ item.state }}"
+      remove: yes
+    with_items: "{{ users }}"
+  # - name: "Install npm dependencies"
+  #   become: true
+  #   command:
+  #     chdir: /vagrant
+  #     cmd: npm install
