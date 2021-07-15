@@ -18,6 +18,10 @@
       comment: Nicola Maria Scarpa
       password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
       state: present
+    - name: andreagalli95
+      comment: Andrea Galli
+      password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
+      state: present
   handlers:
   - name: restart sshd
     service:
