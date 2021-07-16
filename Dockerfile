@@ -8,6 +8,7 @@ WORKDIR /usr/src
 COPY package.json package-lock.json ./
 
 RUN npm install --no-optional --no-progress \
+  && npm build --if-present \
   && npm cache clean --force --silent
 
 COPY ./ ./
