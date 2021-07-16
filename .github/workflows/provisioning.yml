@@ -9,6 +9,12 @@ jobs:
     - uses: actions/checkout@master
       with:
         ref: refs/heads/master
+    - name: Docker Build
+      run: docker build --tag ${GITHUB_REPOSITORY#*/} ${PDW}
+    - name: Docker save
+      run: docker save -o ${GITHUB_SHA}.tar ${GITHUB_REPOSITORY#*/}
+    - name: Debug
+      run: ls -lsah
     - run: ansible-playbook --extra-vars="ansible_user=${SSH_USER} ansible_password=${SSH_PASSWORD}" -i env/production provision.yml
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
