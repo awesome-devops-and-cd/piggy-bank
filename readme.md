@@ -20,7 +20,11 @@ npm start
 ## Build docker image
 
 ```sh
+# if you are inside vagrant you have to run this command first to become root user
+sudo su
+# otherwise just
 docker build -t piggy-bank .
+# then to run the docker container
 docker run --name piggy-bank -p 80:80 -it piggy-bank
 ```
 
