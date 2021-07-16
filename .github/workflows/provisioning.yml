@@ -10,7 +10,7 @@ jobs:
       with:
         ref: refs/heads/master
     - name: Docker Build
-      run: docker build --tag ${GITHUB_REPOSITORY#*/} ${PDW}
+      run: docker build --tag ${GITHUB_REPOSITORY#*/} ${PWD}
     - name: Docker save
       run: docker save -o ${GITHUB_SHA}.tar ${GITHUB_REPOSITORY#*/}
     - name: Debug
