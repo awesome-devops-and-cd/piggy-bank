@@ -17,7 +17,7 @@ npm install
 npm start
 ```
 
-## Build docker iamge
+## Build docker image
 
 ```sh
 docker build -t piggy-bank .
