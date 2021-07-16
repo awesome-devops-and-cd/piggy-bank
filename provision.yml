@@ -110,7 +110,7 @@
       load_path: "/tmp/{{ github_sha }}.tar"
 
   - name: Start {{ github_repository_name }} docker container
-    ansible.builtin.command: docker --name="piggy-bank" run -p 80:80 -id piggy-bank
+    ansible.builtin.command: docker run --name piggy-bank -p 80:80 -id piggy-bank
 
   # - name: Start {{ github_repository_name }} docker container
   #   docker_container:
@@ -122,7 +122,6 @@
   #     purge_networks: true
   #     networks_cli_compatible: no
   #     container_default_behavior: no_defaults
-  #     network_mode: host
   #     # networks:
   #     # - name: test
   #     # published_ports:
