@@ -17,6 +17,13 @@ npm install
 npm start
 ```
 
+## Build docker iamge
+
+```sh
+docker build -t piggy-bank .
+docker run --name piggy-bank -p 80:80 -it piggy-bank
+```
+
 ## Vagrant
 if you don't have the tools installed on your computer (git, nodejs, docker, etc). Use the vagrant configuration instead and run the commands from within our VM.
 
