@@ -117,6 +117,7 @@
       restart: true
       purge_networks: true
       networks_cli_compatible: no
+      network_mode: host
       container_default_behavior: no_defaults
       published_ports:
       - "80:80"
