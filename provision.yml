@@ -118,8 +118,8 @@
       purge_networks: true
       networks_cli_compatible: no
       container_default_behavior: no_defaults
-      # network_mode: host
-      published_ports:
-      - "80:80"
-      exposed_ports:
-      - "80"
+      network_mode: host
+      # published_ports:
+      # - "80:80"
+      # exposed_ports:
+      # - "80"
