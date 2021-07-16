@@ -82,30 +82,25 @@
       state: present
     notify: restart sshd
 
-  - name: Create project directory
-    file:
-      path: /app
-      state: directory
-
-  - name: Copy project into remote directory
+  - name: Copy {{ github_sha }} docker image
     copy:
-      src: ./
-      dest: /app
+      src: "{{ github_sha }}.tar"
+      dest: "/tmp/{{ github_sha }}.tar"
 
-  - name: "Install project dependencies"
-    become: true
-    command:
-      chdir: /app
-      cmd: npm install
+  - name: Load {{ github_repository_name }} docker image
+    docker_image:
+      source: load
+      force_source: true
+      name: {{ github_repository_name }}
+      load_path: "/tmp/{{ github_sha }}.tar"
 
-  - name: "Build project assets"
-    become: true
-    command:
-      chdir: /app
-      cmd: npm run build --if-present
-
-  # - name: "Start project"
-  #   become: true
-  #   command:
-  #     chdir: /app
-  #     cmd: npm start&
+  - name: Start {{ github_repository_name }} docker container
+    docker_container:
+      state: started
+      image: {{ github_repository_name }}
+      name: {{ github_repository_name }}
+      restart: true
+      purge_networks: true
+      networks_cli_compatible: no
+      published_ports:
+      - 80:80
