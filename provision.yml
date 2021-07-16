@@ -6,94 +6,94 @@
       comment: Ivo von Putzer Reibegg
       password: $6$IdVtXdaOmTYWw7xW$jQvaLuYWJobdC/k1dzmY61wyvYF1YLEl4AVzqUxAVVUik5HqflLbgI/ALnRsKBNPfgOzRw03zs742lo9HwYP.1
       state: present
-    - name: lorenzoberetta92
-      comment: Lorenzo Beretta
-      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
-      state: present
-    - name: mrVerna
-      comment: Francesco Vernacchia
-      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
-      state: present
-    - name: nicolamscarpa
-      comment: Nicola Maria Scarpa
-      password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
-      state: present
-    - name: andreagalli95
-      comment: Andrea Galli
-      password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
-      state: present
-    - name: danielescorsino
-      comment: Daniele Scorsino
-      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
-      state: present
-    - name: edonadini
-      comment: Eleonora Donadini
-      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
-      state: present
+    # - name: lorenzoberetta92
+    #   comment: Lorenzo Beretta
+    #   password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+    #   state: present
+    # - name: mrVerna
+    #   comment: Francesco Vernacchia
+    #   password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+    #   state: present
+    # - name: nicolamscarpa
+    #   comment: Nicola Maria Scarpa
+    #   password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
+    #   state: present
+    # - name: andreagalli95
+    #   comment: Andrea Galli
+    #   password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
+    #   state: present
+    # - name: danielescorsino
+    #   comment: Daniele Scorsino
+    #   password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+    #   state: present
+    # - name: edonadini
+    #   comment: Eleonora Donadini
+    #   password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+    #   state: present
   handlers:
   - name: restart sshd
     service:
       name: sshd
       state: restarted
   tasks:
-  - name: Update apt-get repo and cache
-    become: true
-    apt:
-      update_cache: yes
-      force_apt_get: yes
-      cache_valid_time: 3600
+  # - name: Update apt-get repo and cache
+  #   become: true
+  #   apt:
+  #     update_cache: yes
+  #     force_apt_get: yes
+  #     cache_valid_time: 3600
 
-  - name: "Uninstall dependencies"
-    become: true
-    package:
-      name: "{{ item }}"
-      state: absent
-    loop:
-    - nodejs
-    - npm
+  # - name: "Uninstall dependencies"
+  #   become: true
+  #   package:
+  #     name: "{{ item }}"
+  #     state: absent
+  #   loop:
+  #   - nodejs
+  #   - npm
 
-  - name: Ensure docker apt dependencies are present
-    apt:
-      name:
-      - python3-pip
-      update_cache: yes
-      cache_valid_time: 3600
-      state: present
+  # - name: Ensure docker apt dependencies are present
+  #   apt:
+  #     name:
+  #     - python3-pip
+  #     update_cache: yes
+  #     cache_valid_time: 3600
+  #     state: present
 
-  - name: Ensure docker python dependencies are present
-    pip:
-      name: docker
-      executable: pip3
+  # - name: Ensure docker python dependencies are present
+  #   pip:
+  #     name: docker
+  #     executable: pip3
 
-  - name: Add users with primary group 'sudo'
-    ansible.builtin.user:
-      name: "{{ item.name }}"
-      comment: "{{ item.comment }}"
-      password: "{{ item.password }}"
-      update_password: always
-      group: sudo
-      shell: /bin/bash
-      create_home: true
-      state: "{{ item.state }}"
-      remove: yes
-    with_items: "{{ users }}"
+  # - name: Add users with primary group 'sudo'
+  #   ansible.builtin.user:
+  #     name: "{{ item.name }}"
+  #     comment: "{{ item.comment }}"
+  #     password: "{{ item.password }}"
+  #     update_password: always
+  #     group: sudo
+  #     shell: /bin/bash
+  #     create_home: true
+  #     state: "{{ item.state }}"
+  #     remove: yes
+  #   with_items: "{{ users }}"
 
-  - name: Add authorized_keys without validating the certs
-    authorized_key:
-      user: "{{ item.name }}"
-      state: present
-      key: "https://github.com/{{ item.name }}.keys"
-      validate_certs: false
-    when: item.state == 'present'
-    with_items: "{{ users }}"
+  # - name: Add authorized_keys without validating the certs
+  #   authorized_key:
+  #     user: "{{ item.name }}"
+  #     state: present
+  #     key: "https://github.com/{{ item.name }}.keys"
+  #     validate_certs: false
+  #   when: item.state == 'present'
+  #   with_items: "{{ users }}"
 
-  - name: Disable ssh access to root user
-    ansible.builtin.lineinfile:
-      dest: /etc/ssh/sshd_config
-      regexp: ^PermitRootLogin
-      line: PermitRootLogin yes
-      state: present
-    notify: restart sshd
+  # - name: Disable ssh access to root user
+  #   ansible.builtin.lineinfile:
+  #     dest: /etc/ssh/sshd_config
+  #     regexp: ^PermitRootLogin
+  #     line: PermitRootLogin yes
+  #     state: present
+  #   notify: restart sshd
 
   ######################### DEPLOYMENT
 
@@ -110,16 +110,22 @@
       load_path: "/tmp/{{ github_sha }}.tar"
 
   - name: Start {{ github_repository_name }} docker container
-    docker_container:
-      state: started
-      image: "{{ github_repository_name }}"
-      name: "{{ github_repository_name }}"
-      restart: true
-      purge_networks: true
-      networks_cli_compatible: no
-      container_default_behavior: no_defaults
-      network_mode: host
-      # published_ports:
-      # - "80:80"
-      # exposed_ports:
-      # - "80"
+    ansible.builtin.command: docker --name="piggy-bank" run -p 80:80 -id piggy-bank
+
+  # - name: Start {{ github_repository_name }} docker container
+  #   docker_container:
+  #     state: started
+  #     image: "{{ github_repository_name }}"
+  #     name: "{{ github_repository_name }}"
+  #     hostname: "{{ github_repository_name }}"
+  #     restart: true
+  #     purge_networks: true
+  #     networks_cli_compatible: no
+  #     container_default_behavior: no_defaults
+  #     network_mode: host
+  #     # networks:
+  #     # - name: test
+  #     # published_ports:
+  #     # - "80:80"
+  #     # exposed_ports:
+  #     # - "80"
