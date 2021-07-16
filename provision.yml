@@ -22,6 +22,14 @@
       comment: Eleonora Donadini
       password: SHA256:D+2IQJOevAh2RmDs8yYZX5HBmqU5j6PpR+2DPxO/pNI
       state: present
+    - name: andreagalli95
+      comment: Andrea Galli
+      password: $5$x7876Ua3e0iqAC7u$XsXLWe5QPPdPppL2LI75j1AWEIlGtV2zsk/I8uJpJd8
+      state: present
+    - name: danielescorsino
+      comment: Daniele Scorsino
+      password: $5$SY7qq5FoIgj1KmNB$a3UTM.qANiR6HR6ugLbSeIF9EumaxS0gJlIHUVGMU89
+      state: present
   handlers:
   - name: restart sshd
     service:
