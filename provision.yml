@@ -91,14 +91,14 @@
     docker_image:
       source: load
       force_source: true
-      name: {{ github_repository_name }}
+      name: "{{ github_repository_name }}"
       load_path: "/tmp/{{ github_sha }}.tar"
 
   - name: Start {{ github_repository_name }} docker container
     docker_container:
       state: started
-      image: {{ github_repository_name }}
-      name: {{ github_repository_name }}
+      image: "{{ github_repository_name }}"
+      name: "{{ github_repository_name }}"
       restart: true
       purge_networks: true
       networks_cli_compatible: no
